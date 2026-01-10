@@ -1,0 +1,187 @@
+@use "@/styles/variables" as *;
+
+.navbar {
+  background-color: black;
+  max-height: 80px;
+  min-height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 0 40px;
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    position: relative;
+
+    /* shared menu styles */
+    .nav_menu_desktop,
+    .nav_menu_mobile {
+      align-items: center;
+
+      ul {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+
+        li {
+          position: relative;
+          font-size: 0.9rem;
+          font-weight: 600;
+          cursor: pointer;
+
+          &:hover {
+            &:after {
+              width: 100%;
+            }
+          }
+
+          &:after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background-color: white;
+            transition: width 0.3s ease;
+          }
+        }
+      }
+    }
+
+    /* desktop menu visible by default */
+    .nav_menu_desktop {
+      display: flex;
+    }
+
+    /* mobile menu hidden by default */
+    .nav_menu_mobile {
+      display: none;
+    }
+
+    .cta_btns {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .cta_btns_mobile {
+      display: none;
+    }
+
+    .actions {
+      display: none;
+    }
+
+    .toggel,
+    .close {
+      display: none;
+      cursor: pointer;
+      color: white;
+      font-size: 2rem;
+      background: transparent;
+      border: none;
+    }
+
+    @media screen and (max-width: 1024px) {
+      /* hide desktop menu on mobile */
+      .nav_menu_desktop {
+        display: none;
+      }
+
+      /* mobile overlay menu */
+      .nav_menu_mobile {
+        display: flex;
+        position: fixed;
+        left: -100%;
+        top: 0;
+        background-color: black;
+        width: 100%;
+        height: 100%;
+        padding: 6rem 3.5rem 4.5rem;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: left 0.4s;
+        z-index: 10;
+
+        ul {
+          flex-direction: column;
+          width: 100%;
+          align-items: start;
+
+          &:has(li:hover) li:not(:hover) {
+            opacity: 0.4;
+          }
+
+          li {
+            font-size: 1.5rem;
+            transition: opacity 0.4s;
+          }
+        }
+
+        .close {
+          display: initial;
+          position: absolute;
+          top: 1rem;
+          right: 1.5rem;
+        }
+
+        .cta_btns_mobile {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          gap: 1rem;
+        }
+
+        &.active {
+          left: 0;
+        }
+      }
+
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .toggel {
+        display: initial;
+      }
+
+      .cta_btns {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .navbar {
+    padding: 0 1rem;
+
+    nav {
+      .nav_menu_desktop {
+        ul {
+          gap: 1rem;
+
+          li {
+            font-size: 0.8rem;
+          }
+        }
+      }
+      .cta_btns {
+        gap: 1rem;
+      }
+    }
+  }
+}

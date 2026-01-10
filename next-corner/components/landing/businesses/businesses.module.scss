@@ -1,0 +1,259 @@
+@use "@/styles/variables" as *;
+
+@keyframes underlineCycle {
+  /* total 33s: draw 2s, hold 30s, fade 1s */
+  0% {
+    stroke-dashoffset: 1095;
+    opacity: 1;
+  }
+  6% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  } /* draw */
+  97% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  } /* hold */
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  } /* fade */
+}
+
+.businesses {
+  background-color: white;
+  .container {
+    padding-top: 120px;
+    padding-bottom: 120px;
+    @media screen and (max-width: 767px) {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+  }
+}
+
+/* ✅ the animated path */
+.underline {
+  /* normalize length so we don't need magic numbers */
+  stroke-dasharray: 1095;
+  stroke-dashoffset: 0;
+
+  animation: underlineCycle 10s linear infinite;
+}
+
+.businesses_swiper {
+  position: relative;
+}
+
+.sticky {
+  position: sticky;
+  top: 80px;
+  z-index: 20;
+  background: #fff; // makes it look clean when stuck
+  padding: 16px 0 24px;
+}
+
+.swiperTitle {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 80px;
+  flex-wrap: wrap;
+  color: black;
+  line-height: 1.1;
+
+  @media screen and (max-width: 992px) {
+    flex-direction: column;
+  }
+
+  h1 {
+    color: black;
+
+    &.right {
+      font-size: 40px;
+      font-weight: 700;
+      width: 40%;
+      line-height: 1.1;
+
+      span {
+        position: relative;
+
+        div {
+          position: absolute;
+          left: 0;
+          width: 100%;
+          bottom: -10px;
+
+          @media screen and (max-width: 767px) {
+            bottom: -8px;
+          }
+
+          svg {
+            width: 100%;
+            height: auto;
+            display: block;
+          }
+        }
+      }
+
+      @media screen and (max-width: 992px) {
+        width: 100%;
+      }
+
+      @media screen and (max-width: 767px) {
+        font-size: 32px;
+      }
+    }
+
+    &.left {
+      font-size: 20px;
+      font-weight: 500;
+      width: 50%;
+      line-height: 1.3;
+
+      @media screen and (max-width: 992px) {
+        width: 100%;
+      }
+
+      @media screen and (max-width: 767px) {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+/* the carousel visible area (NOT 100vh) */
+.viewport {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  /* change this to whatever you want */
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-inline-end: 102px;
+  will-change: transform;
+
+  @media screen and (max-width: 640px) {
+    padding: 0 1rem;
+  }
+}
+
+.card {
+  position: relative;
+  flex: 0 0 auto;
+  width: 280px;
+  height: 380px;
+  overflow: hidden;
+  border-radius: 1rem;
+  cursor: pointer;
+  overflow: hidden;
+
+  .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      0deg,
+      #000000bf,
+      #0000008d 6.27%,
+      #00000067 11.22%,
+      #00000049 15.51%,
+      #00000035 18.645%,
+      #00000025 21.45%,
+      #00000018 24.09%,
+      #0000000e 26.466%,
+      #00000008 28.413%,
+      #00000004 30.03%,
+      #00000002 31.416%,
+      #0000 32.406%,
+      #0000 33%
+    );
+    z-index: 1;
+  }
+}
+
+.cardImage {
+  width: 100%;
+
+  :global(img) {
+    object-fit: cover;
+    transition: transform 1s ease;
+    width: 100%;
+  }
+}
+
+.card:hover .cardImage :global(img) {
+  transform: scale(1.05);
+}
+
+.cardInfo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  z-index: 2;
+  color: white;
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+}
+
+/* glows stay inside viewport */
+.glow {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+
+  @media screen and (max-width: 640px) {
+  }
+
+  &.bottom {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 102px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      #fff 50.0229%
+    );
+
+    @media screen and (max-width: 640px) {
+      height: 80px;
+    }
+  }
+
+  &.left {
+    top: 0;
+    left: 0;
+    width: 102px;
+    height: 100%;
+    background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
+
+    @media screen and (max-width: 640px) {
+      width: 80px;
+    }
+  }
+
+  &.right {
+    top: 0;
+    right: 0;
+    width: 102px;
+    height: 100%;
+    background: linear-gradient(270deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
+
+    @media screen and (max-width: 640px) {
+      width: 80px;
+    }
+  }
+}
