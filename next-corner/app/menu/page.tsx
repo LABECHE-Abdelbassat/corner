@@ -41,7 +41,7 @@ const menuData = {
       _id: "cat002",
       name: "Burgers",
       description: "Variety of burgers",
-      image: "https://example.com/images/burgers. jpg",
+      image: "https://example.com/images/burgers.jpg",
       order: 2,
     },
     {
@@ -94,7 +94,8 @@ const menuData = {
       categoryId: "cat001",
       name: "Green Salad",
       description: "Fresh salad with special dressing",
-      image: "/images/hero-right1.png",
+      image:
+        "https://media.istockphoto.com/id/520410807/photo/cheeseburger.jpg?s=612x612&w=0&k=20&c=fG_OrCzR5HkJGI8RXBk76NwxxTasMb1qpTVlEM0oyg4=",
       price: 4.99,
       hasOptions: false,
       hasAddons: false,
@@ -1777,7 +1778,7 @@ export default function menu() {
             transform: translateX(0);
           }
         }
-        . animate-slide-up {
+        .animate-slide-up {
           animation: slide-up 0.3s ease-out;
         }
         .animate-slide-in-right {
