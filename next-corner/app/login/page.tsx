@@ -213,7 +213,7 @@ export default function LoginPage() {
             transform: translateX(10px);
           }
         }
-        . animate-float {
+        .animate-float {
           animation: float 6s ease-in-out infinite;
         }
         .animate-float-delayed {

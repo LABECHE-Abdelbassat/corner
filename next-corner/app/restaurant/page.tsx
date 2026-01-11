@@ -21,8 +21,13 @@ import {
   FaConciergeBell,
   FaImage,
   FaInfoCircle,
+  FaPhone,
+  FaClock,
+  FaMapMarkerAlt,
+  FaArrowLeft,
 } from "react-icons/fa";
 import { IoRestaurantOutline, IoClose } from "react-icons/io5";
+import { useRouter } from "next/navigation";
 
 // ==================== INTERFACES ====================
 interface Restaurant {
@@ -32,6 +37,9 @@ interface Restaurant {
   description: string;
   currency: string;
   isOpen: boolean;
+  phone: string;
+  address: string;
+  openingHours: string;
 }
 
 interface Category {
@@ -121,7 +129,9 @@ interface Alert {
 type ProductTab = "basic" | "variants" | "options" | "addons" | "tags";
 
 // ==================== COMPONENT ====================
-export default function RestaurantAdmin() {
+export default function MenuManager() {
+  const router = useRouter();
+
   // State
   const [restaurant, setRestaurant] = useState<Restaurant>({
     _id: `rest${Date.now()}`,
@@ -130,6 +140,9 @@ export default function RestaurantAdmin() {
     description: "",
     currency: "DZD",
     isOpen: true,
+    phone: "",
+    address: "",
+    openingHours: "Mon-Fri: 10:00-22:00",
   });
 
   const [categories, setCategories] = useState<Category[]>([]);
@@ -216,7 +229,7 @@ export default function RestaurantAdmin() {
     if (productsInCategory.length > 0) {
       showAlert(
         "error",
-        `Cannot delete: ${productsInCategory.length} products in this category`
+        `Cannot delete:  ${productsInCategory.length} products in this category`
       );
       return;
     }
@@ -637,8 +650,8 @@ export default function RestaurantAdmin() {
       return;
     }
     const menuData = { restaurant, categories, products, promotions };
-    console.log("Menu saved:", menuData);
-    showAlert("success", "Menu saved successfully!");
+    console.log("Menu & Restaurant Info saved:", menuData);
+    showAlert("success", "Menu & Restaurant Info saved successfully!");
   };
 
   return (
@@ -663,38 +676,71 @@ export default function RestaurantAdmin() {
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-5xl font-black text-white mb-2">
-            Restaurant Menu Builder
-          </h1>
-          <p className="text-gray-400 text-lg">
-            Create and manage your restaurant menu
-          </p>
+      {/* Header */}
+      <header className="sticky top-0 z-40 backdrop-blur-xl bg-black/80 border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => router.push("/restaurant-admin/dashboard")}
+                className="p-3 rounded-xl bg-white/10 hover:bg-white/20 transition-all"
+                title="Back to Dashboard"
+              >
+                <FaArrowLeft className="text-white" />
+              </button>
+              <div>
+                <h1 className="text-3xl font-black text-white">
+                  Menu & Info Manager
+                </h1>
+                <p className="text-gray-400">
+                  Manage your restaurant information and menu
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
+      </header>
 
+      <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Restaurant Info */}
         <div className="backdrop-blur-xl bg-white/5 rounded-3xl p-8 border border-white/10 mb-8">
-          <h2 className="text-3xl font-black text-white mb-6">
+          <h2 className="text-3xl font-black text-white mb-6 flex items-center gap-3">
+            <IoRestaurantOutline className="text-[#FFCE18]" />
             Restaurant Information
           </h2>
           <div className="grid lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 space-y-6">
-              <div>
-                <label className="block text-white font-bold mb-2">
-                  Restaurant Name *
-                </label>
-                <input
-                  type="text"
-                  value={restaurant.name}
-                  onChange={(e) =>
-                    setRestaurant({ ...restaurant, name: e.target.value })
-                  }
-                  placeholder="Enter restaurant name"
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-[#FFCE18] focus:outline-none"
-                />
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-white font-bold mb-2">
+                    Restaurant Name *
+                  </label>
+                  <input
+                    type="text"
+                    value={restaurant.name}
+                    onChange={(e) =>
+                      setRestaurant({ ...restaurant, name: e.target.value })
+                    }
+                    placeholder="Enter restaurant name"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-[#FFCE18] focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-white font-bold mb-2">
+                    Currency
+                  </label>
+                  <input
+                    type="text"
+                    value={restaurant.currency}
+                    onChange={(e) =>
+                      setRestaurant({ ...restaurant, currency: e.target.value })
+                    }
+                    placeholder="DZD, USD, EUR..."
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-[#FFCE18] focus:outline-none"
+                  />
+                </div>
               </div>
+
               <div>
                 <label className="block text-white font-bold mb-2">
                   Description
@@ -708,47 +754,79 @@ export default function RestaurantAdmin() {
                       description: e.target.value,
                     })
                   }
-                  placeholder="Describe your restaurant"
+                  placeholder="Brief description of your restaurant"
                   className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-[#FFCE18] focus:outline-none"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+
+              <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-white font-bold mb-2">
-                    Currency
+                  <label className="block text-white font-bold mb-2 flex items-center gap-2">
+                    <FaPhone className="text-[#FFCE18]" /> Phone Number
                   </label>
                   <input
-                    type="text"
-                    value={restaurant.currency}
+                    type="tel"
+                    value={restaurant.phone}
                     onChange={(e) =>
-                      setRestaurant({ ...restaurant, currency: e.target.value })
+                      setRestaurant({ ...restaurant, phone: e.target.value })
                     }
-                    placeholder="DZD, USD..."
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-[#FFCE18] focus:outline-none"
+                    placeholder="+213 XXX XXX XXX"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-[#FFCE18] focus: outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-white font-bold mb-2">
-                    Status
+                  <label className="block text-white font-bold mb-2 flex items-center gap-2">
+                    <FaClock className="text-[#FFCE18]" /> Opening Hours
                   </label>
-                  <button
-                    onClick={() =>
+                  <input
+                    type="text"
+                    value={restaurant.openingHours}
+                    onChange={(e) =>
                       setRestaurant({
                         ...restaurant,
-                        isOpen: !restaurant.isOpen,
+                        openingHours: e.target.value,
                       })
                     }
-                    className={`w-full px-4 py-3 rounded-xl font-bold ${
-                      restaurant.isOpen
-                        ? "bg-green-500/20 border-2 border-green-500 text-green-100"
-                        : "bg-red-500/20 border-2 border-red-500 text-red-100"
-                    }`}
-                  >
-                    {restaurant.isOpen ? "Open" : "Closed"}
-                  </button>
+                    placeholder="Mon-Fri:  10:00-22:00"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-[#FFCE18] focus:outline-none"
+                  />
                 </div>
               </div>
+
+              <div>
+                <label className="block text-white font-bold mb-2 flex items-center gap-2">
+                  <FaMapMarkerAlt className="text-[#FFCE18]" /> Address
+                </label>
+                <input
+                  type="text"
+                  value={restaurant.address}
+                  onChange={(e) =>
+                    setRestaurant({ ...restaurant, address: e.target.value })
+                  }
+                  placeholder="15 Rue de la Liberté, Tiaret"
+                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-[#FFCE18] focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-white font-bold mb-2">
+                  Status
+                </label>
+                <button
+                  onClick={() =>
+                    setRestaurant({ ...restaurant, isOpen: !restaurant.isOpen })
+                  }
+                  className={`w-full px-4 py-3 rounded-xl font-bold transition-all ${
+                    restaurant.isOpen
+                      ? "bg-green-500/20 border-2 border-green-500 text-green-100"
+                      : "bg-red-500/20 border-2 border-red-500 text-red-100"
+                  }`}
+                >
+                  {restaurant.isOpen ? "Open" : "Closed"}
+                </button>
+              </div>
             </div>
+
             <div>
               <label className="block text-white font-bold mb-2">Logo</label>
               {logoPreview || restaurant.logo ? (
@@ -756,7 +834,7 @@ export default function RestaurantAdmin() {
                   <img
                     src={logoPreview || restaurant.logo}
                     alt="Logo"
-                    className="w-full h-48 object-cover rounded-xl border-2 border-white/10"
+                    className="w-full h-64 object-cover rounded-xl border-2 border-white/10"
                   />
                   <button
                     onClick={() => {
@@ -771,7 +849,7 @@ export default function RestaurantAdmin() {
               ) : (
                 <div
                   onClick={() => document.getElementById("logo-input")?.click()}
-                  className="h-48 rounded-xl border-2 border-dashed border-white/20 flex flex-col items-center justify-center cursor-pointer hover:border-[#FFCE18] transition-all"
+                  className="h-64 rounded-xl border-2 border-dashed border-white/20 flex flex-col items-center justify-center cursor-pointer hover:border-[#FFCE18] transition-all"
                 >
                   <FaImage className="w-12 h-12 text-gray-500 mb-2" />
                   <span className="text-gray-400">Upload Logo</span>
@@ -811,7 +889,7 @@ export default function RestaurantAdmin() {
               </button>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid md: grid-cols-2 lg:grid-cols-3 gap-4">
               {categories
                 .sort((a, b) => a.order - b.order)
                 .map((cat) => (
@@ -827,7 +905,7 @@ export default function RestaurantAdmin() {
                         <button
                           onClick={() => moveCategoryOrder(cat._id, "up")}
                           disabled={cat.order === 1}
-                          className="p-2 rounded-lg bg-white/10 hover:bg-white/20 disabled:opacity-30"
+                          className="p-2 rounded-lg bg-white/10 hover: bg-white/20 disabled:opacity-30"
                         >
                           <FaArrowUp className="text-white" />
                         </button>
@@ -1072,12 +1150,18 @@ export default function RestaurantAdmin() {
         </div>
 
         {/* Save Button */}
-        <div className="flex justify-end">
+        <div className="flex justify-end gap-4">
+          <button
+            onClick={() => router.push("/restaurant-admin/dashboard")}
+            className="px-8 py-4 rounded-xl bg-white/10 text-white font-bold hover:bg-white/20 transition-all"
+          >
+            Cancel
+          </button>
           <button
             onClick={saveMenu}
             className="px-12 py-4 rounded-xl bg-gradient-to-r from-[#FFCE18] to-[#ffd94d] text-black font-black text-lg hover:scale-105 transition-all flex items-center gap-3 shadow-2xl"
           >
-            <FaSave /> Save Menu
+            <FaSave /> Save All Changes
           </button>
         </div>
       </div>
@@ -1191,7 +1275,6 @@ export default function RestaurantAdmin() {
               </button>
             </div>
 
-            {/* Tabs */}
             <div className="border-b border-white/10 px-6">
               <div className="flex gap-2 overflow-x-auto">
                 {["basic", "variants", "options", "addons", "tags"].map(
@@ -1226,7 +1309,6 @@ export default function RestaurantAdmin() {
             </div>
 
             <div className="p-6">
-              {/* BASIC TAB */}
               {productTab === "basic" && (
                 <div className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
@@ -1327,7 +1409,7 @@ export default function RestaurantAdmin() {
                         }
                         disabled={currentProduct?.hasVariants}
                         placeholder="Price"
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-[#FFCE18] focus:outline-none disabled:opacity-50"
+                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-[#FFCE18] focus: outline-none disabled:opacity-50"
                       />
                       {currentProduct?.hasVariants && (
                         <p className="text-xs text-gray-500 mt-1">
@@ -1348,7 +1430,7 @@ export default function RestaurantAdmin() {
                       className={`px-6 py-4 rounded-xl font-bold transition-all ${
                         currentProduct?.hasVariants
                           ? "bg-[#FFCE18]/20 border-2 border-[#FFCE18] text-[#FFCE18]"
-                          : "bg-white/5 border-2 border-white/10 text-white hover:bg-white/10"
+                          : "bg-white/5 border-2 border-white/10 text-white hover: bg-white/10"
                       }`}
                     >
                       Has Variants
@@ -1364,7 +1446,7 @@ export default function RestaurantAdmin() {
                       className={`px-6 py-4 rounded-xl font-bold transition-all ${
                         currentProduct?.hasOptions
                           ? "bg-[#FFCE18]/20 border-2 border-[#FFCE18] text-[#FFCE18]"
-                          : "bg-white/5 border-2 border-white/10 text-white hover:bg-white/10"
+                          : "bg-white/5 border-2 border-white/10 text-white hover: bg-white/10"
                       }`}
                     >
                       Has Options
@@ -1407,7 +1489,6 @@ export default function RestaurantAdmin() {
                 </div>
               )}
 
-              {/* VARIANTS TAB */}
               {productTab === "variants" && (
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
@@ -1471,7 +1552,6 @@ export default function RestaurantAdmin() {
                 </div>
               )}
 
-              {/* OPTIONS TAB */}
               {productTab === "options" && (
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
@@ -1557,7 +1637,6 @@ export default function RestaurantAdmin() {
                 </div>
               )}
 
-              {/* ADDONS TAB */}
               {productTab === "addons" && (
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
@@ -1636,7 +1715,6 @@ export default function RestaurantAdmin() {
                 </div>
               )}
 
-              {/* TAGS TAB */}
               {productTab === "tags" && (
                 <div className="space-y-6">
                   <div>
@@ -1681,7 +1759,7 @@ export default function RestaurantAdmin() {
                           target.value = "";
                         }
                       }}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus: border-[#FFCE18] focus:outline-none mb-4"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-[#FFCE18] focus:outline-none mb-4"
                     />
                     <div className="flex flex-wrap gap-2">
                       {currentProduct?.allergens?.map((allergen, i) => (
@@ -1919,7 +1997,7 @@ export default function RestaurantAdmin() {
                           maxSelections: parseInt(e.target.value),
                         })
                       }
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:border-[#FFCE18] focus:outline-none"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus: border-[#FFCE18] focus:outline-none"
                     />
                   </div>
                 </div>
@@ -1982,7 +2060,7 @@ export default function RestaurantAdmin() {
                                 )
                               }
                               placeholder="0.00"
-                              className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-[#FFCE18] focus:outline-none"
+                              className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 focus: border-[#FFCE18] focus:outline-none"
                             />
                           </div>
                         </div>
@@ -2029,7 +2107,7 @@ export default function RestaurantAdmin() {
               </button>
               <button
                 onClick={saveOptionGroup}
-                className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-[#FFCE18] to-[#ffd94d] text-black font-bold hover:scale-105 transition-all"
+                className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-[#FFCE18] to-[#ffd94d] text-black font-bold hover: scale-105 transition-all"
               >
                 Save
               </button>
@@ -2121,14 +2199,14 @@ export default function RestaurantAdmin() {
                   <h4 className="text-lg font-bold text-white">Addons</h4>
                   <button
                     onClick={addAddonItem}
-                    className="px-4 py-2 rounded-xl bg-[#FFCE18] text-black font-bold hover:scale-105 transition-all text-sm"
+                    className="px-4 py-2 rounded-xl bg-[#FFCE18] text-black font-bold hover: scale-105 transition-all text-sm"
                   >
                     <FaPlus className="inline mr-2" /> Add Addon
                   </button>
                 </div>
                 {currentAddonGroup?.items?.length === 0 ? (
                   <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-4 text-center text-yellow-400">
-                    No addons added. Add at least one addon.
+                    No addons added.Add at least one addon.
                   </div>
                 ) : (
                   <div className="space-y-3">
@@ -2137,7 +2215,7 @@ export default function RestaurantAdmin() {
                         key={item._id}
                         className="bg-white/5 rounded-xl p-4 border border-white/10"
                       >
-                        <div className="grid md:grid-cols-2 gap-4 mb-3">
+                        <div className="grid md: grid-cols-2 gap-4 mb-3">
                           <div>
                             <label className="block text-white text-sm font-bold mb-2">
                               Name *
@@ -2153,7 +2231,7 @@ export default function RestaurantAdmin() {
                                 )
                               }
                               placeholder="Addon name"
-                              className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-[#FFCE18] focus: outline-none"
+                              className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-[#FFCE18] focus:outline-none"
                             />
                           </div>
                           <div>
@@ -2324,7 +2402,7 @@ export default function RestaurantAdmin() {
                     })
                   }
                   placeholder="0 = No minimum"
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-[#FFCE18] focus:outline-none"
+                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-[#FFCE18] focus: outline-none"
                 />
               </div>
               <div>
