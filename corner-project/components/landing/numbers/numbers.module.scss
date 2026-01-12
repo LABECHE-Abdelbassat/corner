@@ -1,0 +1,68 @@
+@use "@/styles/variables" as *;
+
+.numbers {
+  .container {
+    padding-top: 120px;
+    padding-bottom: 120px;
+    overflow: hidden;
+
+    @media screen and (max-width: 767px) {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+
+    .title {
+      margin-bottom: 2rem;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: black;
+      text-align: center;
+
+      @media screen and (max-width: 640px) {
+        text-align: center;
+        font-size: 2.5rem;
+      }
+
+      @media screen and (max-width: 480px) {
+        font-size: 2rem;
+      }
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+
+      @media screen and (max-width: 640px) {
+        grid-template-columns: repeat(2, 1fr);
+
+        .number {
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      .number {
+        display: flex;
+        flex-direction: column;
+
+        h1 {
+          color: black;
+          font-weight: 700;
+          font-size: 2.5rem;
+          text-align: center;
+        }
+
+        span {
+          font-size: 1rem;
+          color: $gray-color;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

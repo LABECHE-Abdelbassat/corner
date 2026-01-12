@@ -1,0 +1,57 @@
+@tailwind utilities;
+
+:root {
+  --primary-color: #ff17e9;
+  --color-accent: #2563eb;
+  --dark-color: #1a1a1a;
+  --dark-gray-color: #808080;
+  --light-gray-color: #eaeaea;
+  --text-color: #545353;
+  --red-color: #e94747;
+  --section-color: #f6f6f6;
+}
+
+body {
+  position: relative;
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Target all select dropdown options */
+select {
+  option {
+    background-color: #0d0d0d; // deep black
+    color: #f1f1f1; // soft white text
+    padding: 10px 14px;
+
+    /* Font improvements */
+    font-size: 0.95rem;
+    font-weight: 500;
+
+    /* Some browsers respect this */
+    border: none;
+  }
+
+  /* Selected option */
+  option:checked {
+    background-color: #1f1f1f;
+    color: #ffffff;
+  }
+
+  /* Hover state (works in Chromium-based browsers) */
+  option:hover {
+    background-color: #2a2a2a;
+    color: #ffffff;
+  }
+
+  /* Disabled option */
+  option:disabled {
+    color: #777;
+    background-color: #0d0d0d;
+  }
+}

@@ -1,0 +1,136 @@
+@use "@/styles/variables" as *;
+
+@keyframes underlineCycle {
+  /* total 33s: draw 2s, hold 30s, fade 1s */
+  0% {
+    stroke-dashoffset: 1095;
+    opacity: 1;
+  }
+  6% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  } /* draw */
+  97% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  } /* hold */
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  } /* fade */
+}
+
+.contact {
+  background-color: white;
+  .container {
+    padding-top: 120px;
+    padding-bottom: 120px;
+    overflow: hidden;
+    @media screen and (max-width: 767px) {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+
+    .title {
+      font-size: 64px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 5rem;
+
+      @media screen and (max-width: 767px) {
+        font-size: 42px;
+      }
+
+      span {
+        position: relative;
+
+        div {
+          position: absolute;
+          left: 0;
+          width: 100%;
+          bottom: -24px;
+
+          @media screen and (max-width: 767px) {
+            bottom: -16px;
+          }
+
+          svg {
+            width: 100%;
+            height: auto;
+            display: block;
+          }
+        }
+      }
+
+      .underline {
+        stroke-dasharray: 1095;
+        stroke-dashoffset: 0;
+
+        animation: underlineCycle 10s linear infinite;
+      }
+    }
+
+    .cards {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      line-height: 1.1;
+
+      .card {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+
+        .icon {
+          width: 48px;
+          height: 48px;
+          border-radius: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: $primary-color;
+
+          svg {
+            font-size: 18px;
+          }
+        }
+
+        h3 {
+          color: black;
+          font-weight: 700;
+          font-size: 24px;
+        }
+
+        .links {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+
+          a {
+            position: relative;
+
+            &:after {
+              content: "";
+              position: absolute;
+              left: 0;
+              bottom: -5px;
+              width: 0;
+              height: 2px;
+              background-color: $primary-color;
+              transition: width 0.3s;
+            }
+
+            &:hover:after {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

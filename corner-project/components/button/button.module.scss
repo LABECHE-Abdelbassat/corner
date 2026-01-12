@@ -1,0 +1,112 @@
+@use "@/styles/variables" as *;
+
+.button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  border-radius: 50px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  a {
+    height: 54px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 24px;
+    gap: 8px;
+  }
+
+  &.primary {
+    background-color: white;
+    color: black;
+
+    svg {
+      position: absolute;
+      width: 24px;
+      top: -16%;
+      right: 8%;
+    }
+
+    a {
+      padding: 0 28px;
+    }
+
+    .frame {
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      border-radius: 100px;
+      overflow: hidden;
+      transform: translateZ(0);
+      transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    &:hover {
+      svg {
+        animation: wiggle 300ms steps(2, end) infinite alternate;
+      }
+      .frame {
+        transform: scale(1.1, 1.18);
+      }
+    }
+  }
+
+  &.secondary {
+    background-color: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    position: relative;
+    overflow: hidden;
+
+    a {
+      background-color: transparent;
+    }
+
+    &::after {
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      background-color: white;
+      width: 100%;
+      height: 100%;
+      border-radius: 50px;
+      z-index: -1;
+      transition: all 500ms cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateX(-100.1%);
+      transform-origin: left center;
+    }
+
+    .frame {
+      display: none;
+    }
+
+    &:hover {
+      color: black;
+      .frame {
+        transform: scale(1.1, 1.18);
+      }
+
+      &::after {
+        transform: translateX(0);
+      }
+    }
+  }
+}
+
+@keyframes wiggle {
+  0% {
+    transform: rotate(-16deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}

@@ -1,0 +1,368 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ==================== USER & AUTH ====================
+enum UserRole {
+  SUPER_ADMIN
+  MANAGER
+  OWNER
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model User {
+  id            String       @id @default(cuid())
+  username      String       @unique
+  password      String
+  email         String?  
+  role          UserRole
+  status        UserStatus   @default(ACTIVE)
+  
+  restaurantId  String?      @unique
+  restaurant    Restaurant?    @relation(fields: [restaurantId], references: [id], onDelete:  Cascade)
+  
+  wilayaId      String?       @unique
+  managedWilaya Wilaya?      @relation(fields:  [wilayaId], references:  [id])
+  
+  activities    Activity[]
+  
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  
+  @@index([username])
+  @@index([role])
+  @@index([status])
+}
+
+// ==================== WILAYA ====================
+model Wilaya {
+  id              String       @id @default(cuid())
+  name            String       @unique
+  code            String       @unique
+  lat             Float
+  lng             Float
+  gradient        String       @default("from-blue-500 to-cyan-500")
+  
+  restaurants     Restaurant[]
+  manager         User?  
+  
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  
+  @@index([name])
+  @@index([code])
+}
+
+// ==================== RESTAURANT ====================
+enum RestaurantStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum PackageType {
+  BASIC
+  PRO
+  PREMIUM
+}
+
+model Restaurant {
+  id              String            @id @default(cuid())
+  name            String
+  slug            String            @unique
+  logo            String? 
+  description     String?
+  address         String?
+  phone           String?
+  openingHours    String?
+  currency        String            @default("DZD")
+  lat             Float?  
+  lng             Float? 
+  
+  status          RestaurantStatus  @default(ACTIVE)
+  package         PackageType       @default(BASIC)
+  
+  wilayaId        String
+  wilaya          Wilaya            @relation(fields: [wilayaId], references: [id])
+  
+  owner           User?  
+  
+  categories      Category[]
+  products        Product[]
+  promotions      Promotion[]
+  
+  stats           RestaurantStats?
+  activities      Activity[]
+  
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  
+  @@index([wilayaId])
+  @@index([status])
+  @@index([slug])
+  @@index([name])
+}
+
+// ==================== MENU STRUCTURE ====================
+
+model Category {
+  id              String       @id @default(cuid())
+  restaurantId    String
+  restaurant      Restaurant   @relation(fields: [restaurantId], references: [id], onDelete:  Cascade)
+  
+  name            String
+  description     String?
+  image           String?
+  order           Int          @default(0)
+  
+  products        Product[]
+  
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  
+  @@index([restaurantId])
+  @@index([order])
+}
+
+model Product {
+  id              String       @id @default(cuid())
+  restaurantId    String
+  restaurant      Restaurant   @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  
+  categoryId      String
+  category        Category     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  
+  name            String
+  description     String?
+  image           String?
+  price           Float        @default(0)
+  
+  isAvailable     Boolean      @default(true)
+  hasVariants     Boolean      @default(false)
+  hasOptions      Boolean      @default(false)
+  hasAddons       Boolean      @default(false)
+  
+  tags            String[]
+  allergens       String[]
+  searchText      String?
+  
+  variants        Variant[]
+  optionGroups    OptionGroup[]
+  addonGroups     AddonGroup[]
+  
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  
+  @@index([restaurantId])
+  @@index([categoryId])
+  @@index([name])
+  @@index([isAvailable])
+  @@index([tags])
+}
+
+model Variant {
+  id              String       @id @default(cuid())
+  productId       String
+  product         Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  name            String
+  price           Float
+  isDefault       Boolean      @default(false)
+  order           Int          @default(0)
+  
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  
+  @@index([productId])
+}
+
+model OptionGroup {
+  id                String       @id @default(cuid())
+  productId         String
+  product           Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  groupName         String
+  required          Boolean      @default(false)
+  multipleSelection Boolean      @default(false)
+  minSelections     Int          @default(0)
+  maxSelections     Int          @default(1)
+  order             Int          @default(0)
+  
+  items             OptionItem[]
+  
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  
+  @@index([productId])
+}
+
+model OptionItem {
+  id                String       @id @default(cuid())
+  optionGroupId     String
+  optionGroup       OptionGroup  @relation(fields: [optionGroupId], references: [id], onDelete:  Cascade)
+  
+  name              String
+  priceAdjustment   Float        @default(0)
+  isDefault         Boolean      @default(false)
+  order             Int          @default(0)
+  
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  
+  @@index([optionGroupId])
+}
+
+model AddonGroup {
+  id                String       @id @default(cuid())
+  productId         String
+  product           Product      @relation(fields: [productId], references:  [id], onDelete: Cascade)
+  
+  groupName         String
+  required          Boolean      @default(false)
+  multipleSelection Boolean      @default(true)
+  minSelections     Int          @default(0)
+  maxSelections     Int          @default(5)
+  order             Int          @default(0)
+  
+  items             AddonItem[]
+  
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  
+  @@index([productId])
+}
+
+model AddonItem {
+  id                String       @id @default(cuid())
+  addonGroupId      String
+  addonGroup        AddonGroup   @relation(fields: [addonGroupId], references: [id], onDelete:  Cascade)
+  
+  name              String
+  priceAdjustment   Float        @default(0)
+  order             Int          @default(0)
+  
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  
+  @@index([addonGroupId])
+}
+
+model Promotion {
+  id                  String       @id @default(cuid())
+  restaurantId        String
+  restaurant          Restaurant   @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  
+  name                String
+  description         String
+  discountType        String
+  discountValue       Float
+  minimumOrderValue   Float        @default(0)
+  
+  isActive            Boolean      @default(true)
+  daysAvailable       Int[]
+  
+  startDate           DateTime?  
+  endDate             DateTime?  
+  
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+  
+  @@index([restaurantId])
+  @@index([isActive])
+}
+
+// ==================== STATS & ANALYTICS ====================
+model RestaurantStats {
+  id              String       @id @default(cuid())
+  restaurantId    String       @unique
+  restaurant      Restaurant   @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  
+  totalViews      Int          @default(0)
+  totalScans      Int          @default(0)
+  totalMapClicks  Int          @default(0)
+  
+  todayViews      Int          @default(0)
+  todayScans      Int          @default(0)
+  todayMapClicks  Int          @default(0)
+  lastResetDate   DateTime     @default(now())
+  
+  monthlyData     Json?  
+  
+  updatedAt       DateTime     @updatedAt
+}
+
+// ==================== ACTIVITY LOG ====================
+enum ActivityType {
+  RESTAURANT_CREATED
+  RESTAURANT_UPDATED
+  RESTAURANT_DELETED
+  MENU_UPDATED
+  CATEGORY_CREATED
+  CATEGORY_UPDATED
+  CATEGORY_DELETED
+  PRODUCT_CREATED
+  PRODUCT_UPDATED
+  PRODUCT_DELETED
+  USER_CREATED
+  USER_UPDATED
+  USER_DELETED
+  PASSWORD_RESET
+  QR_GENERATED
+  WILAYA_CREATED
+  WILAYA_UPDATED
+  WILAYA_DELETED
+}
+
+model Activity {
+  id              String        @id @default(cuid())
+  type            ActivityType
+  description     String
+  
+  restaurantId    String?  
+  restaurant      Restaurant?   @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  
+  userId          String? 
+  user            User?         @relation(fields: [userId], references: [id], onDelete:  SetNull)
+  
+  metadata        Json?
+  
+  createdAt       DateTime      @default(now())
+  
+  @@index([restaurantId])
+  @@index([userId])
+  @@index([type])
+  @@index([createdAt])
+}
+
+// ==================== SEARCH OPTIMIZATION ====================
+model SearchIndex {
+  id              String       @id @default(cuid())
+  restaurantId    String
+  restaurantName  String
+  wilayaName      String
+  
+  productId       String? 
+  productName     String?
+  productDesc     String?
+  categoryName    String?  
+  tags            String[]
+  
+  searchText      String
+  
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  
+  @@index([restaurantId])
+  @@index([productId])
+  @@index([searchText])
+}

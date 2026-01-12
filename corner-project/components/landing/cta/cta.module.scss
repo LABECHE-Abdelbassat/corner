@@ -1,0 +1,58 @@
+@use "@/styles/variables" as *;
+
+.cta {
+  background-color: black;
+  position: relative;
+  overflow: hidden;
+
+  .icon {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+
+    @media screen and (max-width: 992px) {
+      display: none;
+    }
+  }
+
+  .iconSecond {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    padding-top: 120px;
+    padding-bottom: 120px;
+    overflow: hidden;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .title {
+    font-weight: 700;
+    font-size: 64px;
+    text-align: center;
+    line-height: 1.1;
+    color: white;
+    max-width: 800px;
+
+    @media screen and (max-width: 992px) {
+      font-size: 42px;
+    }
+  }
+
+  .btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
