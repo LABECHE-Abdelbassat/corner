@@ -32,3 +32,64 @@ select option:disabled {
   color: #777;
   background-color: #0d0d0d;
 }
+
+/* Tailwind-like appContainer */
+.appContainer {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; /* DEFAULT */
+  padding-right: 1rem; /* DEFAULT */
+}
+
+/* padding breakpoints */
+@media (min-width: 640px) {
+  .appContainer {
+    padding-left: 1.5rem; /* sm */
+    padding-right: 1.5rem; /* sm */
+  }
+}
+
+@media (min-width: 1024px) {
+  .appContainer {
+    padding-left: 2.5rem; /* lg */
+    padding-right: 2.5rem; /* lg */
+  }
+}
+
+/* max-width breakpoints (Tailwind appContainer style) */
+@media (min-width: 640px) {
+  .appContainer {
+    max-width: 640px; /* sm */
+  }
+}
+
+@media (min-width: 768px) {
+  .appContainer {
+    max-width: 768px; /* md */
+  }
+}
+
+@media (min-width: 1024px) {
+  .appContainer {
+    max-width: 1024px; /* lg */
+  }
+}
+
+@media (min-width: 1320px) {
+  .appContainer {
+    max-width: 1320px; /* xl */
+  }
+}
+
+@media (min-width: 1480px) {
+  .appContainer {
+    max-width: 1480px; /* 2xl */
+  }
+}
+
+/* .menuPage {
+  background-image: url("https://cdn.prod.website-files.com/62fbe8f0f42ace74023a544d/62fd0a80143c4e0ff5e0f0df_tuckers-wash-board-panels.jpg");
+  background-position: 0 0;
+  background-size: 200px;
+} */

@@ -7,7 +7,7 @@ import * as motion from "motion/react-client";
 import { AnimatePresence } from "motion/react";
 import { IoLanguage } from "react-icons/io5";
 
-const Dropdown = () => {
+const Dropdown = ({ variant = "black" }) => {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
 
@@ -49,7 +49,7 @@ const Dropdown = () => {
   }, [open]);
 
   return (
-    <div ref={rootRef} className={styles.dropdown}>
+    <div ref={rootRef} className={`${styles.dropdown} ${styles[variant]}`}>
       <div
         className={`${styles.active} ${open ? styles.open : ""}`}
         onClick={() => setOpen((v) => !v)}

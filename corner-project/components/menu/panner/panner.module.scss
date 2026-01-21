@@ -1,0 +1,47 @@
+@use "@/styles/variables" as *;
+
+.panner {
+  padding-top: 80px;
+
+  .panner_container {
+    padding-top: 56px;
+
+    #containerForBullets,
+    .pagin {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      order: 2;
+      margin-top: 1rem;
+
+      :global(.swiper-custom-bullet) {
+        display: block;
+        height: 8px;
+        width: 8px;
+        background-color: #d0d0d0;
+        border-radius: 50%;
+        transition: 0.3s width, 0.3s border-radius, 0.3s background-color;
+        cursor: pointer;
+      }
+
+      :global(.swiper-custom-bullet.swiper-custom-bullet-active) {
+        background-color: black;
+        width: 24px;
+        border-radius: 1rem;
+      }
+    }
+
+    .panner_card {
+      border-radius: 1rem;
+      overflow: hidden;
+
+      img {
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+    }
+  }
+}

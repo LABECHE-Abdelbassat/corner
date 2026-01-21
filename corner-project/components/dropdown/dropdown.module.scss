@@ -2,6 +2,71 @@
 
 .dropdown {
   position: relative;
+  user-select: none;
+
+  &.black {
+    .active {
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+
+      svg {
+        color: white;
+      }
+
+      &::after {
+        background-color: white;
+      }
+      @media screen and (min-width: 768px) {
+        &:hover {
+          color: black;
+
+          svg {
+            color: black;
+          }
+        }
+      }
+
+      &.open {
+        color: black;
+
+        svg {
+          color: black;
+        }
+      }
+    }
+  }
+
+  &.white {
+    .active {
+      color: black;
+      border: 1px solid #dedede;
+
+      svg {
+        color: black;
+      }
+
+      &::after {
+        background-color: black;
+      }
+      @media screen and (min-width: 768px) {
+        &:hover {
+          color: white;
+
+          svg {
+            color: white;
+          }
+        }
+      }
+
+      &.open {
+        color: white;
+
+        svg {
+          color: white;
+        }
+      }
+    }
+  }
 
   .active {
     display: flex;
@@ -17,13 +82,11 @@
     gap: 8px;
 
     background-color: transparent;
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.28);
+
     position: relative;
     overflow: hidden;
 
     svg {
-      color: white;
       transition: 0.3s;
     }
 
@@ -32,7 +95,6 @@
       content: "";
       top: 0;
       left: 0;
-      background-color: white;
       width: 100%;
       height: 100%;
       border-radius: 50px;
@@ -44,14 +106,8 @@
 
     @media screen and (min-width: 768px) {
       &:hover {
-        color: black;
         .frame {
           transform: scale(1.1, 1.18);
-        }
-
-        svg {
-          color: black;
-          // transform: rotate(180deg);
         }
 
         &::after {
@@ -61,13 +117,11 @@
     }
 
     &.open {
-      color: black;
       .frame {
         transform: scale(1.1, 1.18);
       }
 
       svg {
-        color: black;
         transform: rotate(180deg);
       }
 

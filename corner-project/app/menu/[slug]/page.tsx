@@ -16,58 +16,10 @@ import {
   FaArrowLeft,
   FaSpinner,
 } from "react-icons/fa";
-
-// ==================== INTERFACES ====================
-interface Restaurant {
-  id: string;
-  name: string;
-  slug: string;
-  logo: string | null;
-  description: string | null;
-  currency: string;
-  phone: string | null;
-  address: string | null;
-  openingHours: string | null;
-  isOpen: boolean;
-}
-
-interface Category {
-  _id: string;
-  name: string;
-  description: string | null;
-  image: string | null;
-  order: number;
-}
-
-interface Product {
-  _id: string;
-  categoryId: string;
-  name: string;
-  description: string | null;
-  image: string | null;
-  price: number;
-  hasOptions: boolean;
-  hasAddons: boolean;
-  hasVariants: boolean;
-  isAvailable: boolean;
-  tags: string[];
-  allergens: string[];
-  variants?: any[];
-  optionGroups?: any[];
-  addonGroups?: any[];
-}
-
-interface CartItem {
-  productId: string;
-  name: string;
-  basePrice: number;
-  quantity: number;
-  selectedVariant?: any;
-  selectedOptions: any[];
-  selectedAddons: any[];
-  totalPrice: number;
-  image?: string | null;
-}
+import { Restaurant } from "@/types/restaurant.types";
+import { Category } from "@/types/category.types";
+import { Product } from "@/types/product.types";
+import { CartItem } from "@/types/cart-item.types";
 
 export default function MenuPage() {
   const params = useParams();

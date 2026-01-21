@@ -1,0 +1,48 @@
+@use "@/styles/variables" as *;
+
+.location {
+  .location_container {
+    padding-top: 32px;
+    padding-bottom: 64px;
+
+    .title {
+      line-height: 1.1;
+      font-weight: 700;
+      color: black;
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .locations {
+      .item {
+        .header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 1rem;
+
+          .item_title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 600;
+
+            svg {
+            }
+          }
+
+          a {
+            text-decoration: underline;
+          }
+        }
+
+        .map_section {
+          overflow: hidden;
+          border-radius: 1rem;
+        }
+      }
+    }
+  }
+}

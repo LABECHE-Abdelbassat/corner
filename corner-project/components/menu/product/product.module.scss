@@ -1,0 +1,108 @@
+@use "@/styles/variables" as *;
+
+.drawer_content {
+  height: 50vh;
+
+  .drawer_container {
+    margin: 2rem 0;
+  }
+
+  .drawer_image {
+    margin: auto;
+    width: 50%;
+
+    height: auto;
+    img {
+      object-fit: cover;
+    }
+  }
+}
+
+.product {
+  padding-top: 1.5rem;
+
+  .product_container {
+    .title {
+      line-height: 1.1;
+      font-weight: 700;
+      color: black;
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr)); /* small screens: 2 */
+      gap: 16px;
+
+      @media (min-width: 768px) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      @media (min-width: 992px) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .product_card {
+        overflow: hidden;
+        background-color: #f8f8f8;
+        border-radius: 1rem;
+        padding: 1rem;
+        line-height: 1.1;
+
+        .image {
+          width: 100%;
+          height: auto;
+          img {
+            object-fit: cover;
+          }
+        }
+
+        .name {
+          margin-top: 1rem;
+          font-weight: 600;
+          font-size: 20px;
+          color: black;
+        }
+
+        .description {
+          margin-top: 0.5rem;
+          color: #828282;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3; /* max 3 lines */
+          overflow: hidden;
+
+          /* optional: better word breaking */
+          word-break: break-word;
+        }
+
+        .footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-top: 1rem;
+          border-top: 1px solid #e0e0e0;
+          margin-top: 10px;
+          // #ededed
+
+          .price {
+            color: #fe6910;
+            display: flex;
+            gap: 4px;
+            font-size: 2rem;
+            align-items: end;
+            justify-content: end;
+            font-weight: 700;
+
+            span {
+              font-size: 1rem;
+              font-weight: 500;
+            }
+          }
+        }
+      }
+    }
+  }
+}

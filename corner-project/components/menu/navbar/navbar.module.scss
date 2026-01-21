@@ -1,0 +1,73 @@
+@use "@/styles/variables" as *;
+
+.navbar {
+  max-height: 100px;
+  min-height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  border-bottom: 1px solid #dedede;
+  background-color: white;
+
+  .navContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    position: relative;
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .hamburger {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 9999;
+      }
+    }
+  }
+
+  .menu {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #fe6910;
+
+    .title {
+      font-weight: 700;
+      height: 120px;
+      display: flex;
+      align-items: center;
+
+      h1 {
+        font-size: 20px;
+      }
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      height: calc(100vh - 120px);
+      line-height: 1.1;
+
+      .nav_link {
+        font-weight: 700;
+        font-size: 3rem;
+      }
+    }
+  }
+}
