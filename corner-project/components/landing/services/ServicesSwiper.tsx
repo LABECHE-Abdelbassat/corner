@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { Pagination, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,40 +10,54 @@ import * as motion from "motion/react-client";
 import "swiper/css/pagination";
 import "swiper/css";
 import styles from "./services.module.scss";
-import test from "@/public/images/PaymentPayment-Terminal-LanguageUS-ModeDark-min.png";
+
+import srvImg1 from "@/public/images/Smart-QR-Digital-Menu.webp";
+import srvImg2 from "@/public/images/NFC-Plaques-&-NFC-Cards.webp";
+import srvImg3 from "@/public/images/Visual-Identity-&-Landing-Page.webp";
+import srvImg4 from "@/public/images/Digital-Presence(1).webp";
+import srvImg5 from "@/public/images/Content2.webp";
 import Image from "next/image";
 
+import { useTranslations } from "next-intl";
+
 const ServicesSwiper = () => {
+  const t = useTranslations("HomePage.Services");
+
   const services = [
     {
-      src: test,
-      title: "Smart Handheld",
-      description: "The first terminal built for hospitality.",
+      src: srvImg1,
+      title: t("cards.menu.title"),
+      description: t("cards.menu.description"),
+      alt: t("cards.menu.alt"),
     },
     {
-      src: test,
-      title: "Smart Handheld",
-      description: "The first terminal built for hospitality.",
+      src: srvImg2,
+      title: t("cards.nfc.title"),
+      description: t("cards.nfc.description"),
+      alt: t("cards.nfc.alt"),
     },
     {
-      src: test,
-      title: "Smart Handheld",
-      description: "The first terminal built for hospitality.",
+      src: srvImg3,
+      title: t("cards.identity.title"),
+      description: t("cards.identity.description"),
+      alt: t("cards.identity.alt"),
     },
     {
-      src: test,
-      title: "Smart Handheld",
-      description: "The first terminal built for hospitality.",
+      src: srvImg4,
+      title: t("cards.presence.title"),
+      description: t("cards.presence.description"),
+      alt: t("cards.presence.alt"),
     },
     {
-      src: test,
-      title: "Smart Handheld",
-      description: "The first terminal built for hospitality.",
+      src: srvImg5,
+      title: t("cards.content.title"),
+      description: t("cards.content.description"),
+      alt: t("cards.content.alt"),
     },
   ];
 
   return (
-    <div className={`${styles.services_swiper}`}>
+    <div className={styles.services_swiper}>
       <Swiper
         spaceBetween={30}
         speed={1000}
@@ -55,19 +68,21 @@ const ServicesSwiper = () => {
         }}
         slidesPerView="auto"
         modules={[Pagination, Navigation]}
-        className={`${styles.swiper}`}
+        className={styles.swiper}
       >
         {services.map((service, i) => {
-          const title = toWords(service.title);
+          const words = toWords(service.title);
+
           return (
             <SwiperSlide key={i}>
               <div className={styles.service_slide}>
                 <div className={styles.image}>
-                  <Image src={service.src} alt={service.title} />
+                  <Image src={service.src} alt={service.alt} />
                 </div>
+
                 <div className={styles.info}>
                   <h1>
-                    {title.map((word, index) => (
+                    {words.map((word, index) => (
                       <React.Fragment key={index}>
                         <motion.span
                           className="inline-block"
@@ -82,11 +97,11 @@ const ServicesSwiper = () => {
                         >
                           {word}
                         </motion.span>
-
-                        {index !== title.length - 1 && " "}
+                        {index !== words.length - 1 && " "}
                       </React.Fragment>
                     ))}
                   </h1>
+
                   <span className={styles.description}>
                     {service.description}
                   </span>
@@ -96,12 +111,13 @@ const ServicesSwiper = () => {
           );
         })}
       </Swiper>
+
       <div className={`${styles.pagin} pe-4 sm:pe-6 lg:pe-10`}>
-        <div className={`swiper-button-prev prev`}>
-          <IoIosArrowBack onClick={() => {}} />
+        <div className="swiper-button-prev prev">
+          <IoIosArrowBack />
         </div>
-        <div className={`swiper-button-next next`}>
-          <IoIosArrowForward onClick={() => {}} />
+        <div className="swiper-button-next next">
+          <IoIosArrowForward />
         </div>
       </div>
     </div>

@@ -1,31 +1,43 @@
 import React from "react";
-
 import styles from "./benefits.module.scss";
 
-import img from "@/public/images/TopicEmpower-your-team-SizeSquare-LanguageUK-min.png";
-import Image from "next/image";
+import why1 from "@/public/images/why-1.webp";
+import why1fr from "@/public/images/why-1fr.webp";
+import why2 from "@/public/images/why-2.webp";
+import why3 from "@/public/images/why-3.webp";
+import why3fr from "@/public/images/why-3fr.webp";
 
+import Image from "next/image";
 import { toWords } from "@/utils/toWords";
 import * as motion from "motion/react-client";
+import { useTranslations, useLocale } from "next-intl";
 
 const Benefits = () => {
-  const title = toWords("Every touchpoint now drives growth.");
+  const t = useTranslations("HomePage.Benefits");
+  const locale = useLocale();
+
+  const isFr = locale === "fr";
+
+  const titleWords = toWords(t("title"));
 
   const cards = [
     {
-      src: img,
-      span: "For Staff",
-      h1: "Higher tips, smoother service, better guest-connections.",
+      src: isFr ? why1fr : why1,
+      span: t("cards.card1.span"),
+      h1: t("cards.card1.h1"),
+      alt: t("cards.card1.alt"),
     },
     {
-      src: img,
-      span: "For Staff",
-      h1: "Higher tips, smoother service, better guest-connections.",
+      src: why2, // same for both languages
+      span: t("cards.card2.span"),
+      h1: t("cards.card2.h1"),
+      alt: t("cards.card2.alt"),
     },
     {
-      src: img,
-      span: "For Staff",
-      h1: "Higher tips, smoother service, better guest-connections.",
+      src: isFr ? why3fr : why3,
+      span: t("cards.card3.span"),
+      h1: t("cards.card3.h1"),
+      alt: t("cards.card3.alt"),
     },
   ];
 
@@ -34,7 +46,7 @@ const Benefits = () => {
       <div className={`mx-auto px-4 sm:px-6 lg:px-10 ${styles.container}`}>
         <div className={`${styles.title} pe-4 sm:pe-6 lg:pe-10`}>
           <h1 className={styles.right}>
-            {title.map((word, index) => (
+            {titleWords.map((word, index) => (
               <React.Fragment key={index}>
                 <motion.span
                   className="inline-block"
@@ -49,31 +61,34 @@ const Benefits = () => {
                 >
                   {word}
                 </motion.span>
-
-                {index !== title.length - 1 && " "}
+                {index !== titleWords.length - 1 && " "}
               </React.Fragment>
             ))}
           </h1>
 
-          <h1 className={styles.left}>
-            Every page, profile, and post now creates value, turning discovery
-            into trust, and trust into customers.
-          </h1>
+          <h1 className={styles.left}>{t("subtitle")}</h1>
         </div>
 
         <div className={styles.cards}>
           {cards.map((card, index) => {
-            const cardTitle = toWords(card.h1);
+            const cardTitleWords = toWords(card.h1);
+
             return (
               <div className={styles.card} key={index}>
                 <div className={styles.img}>
-                  <Image src={card.src} alt="test" />
+                  <Image
+                    src={card.src}
+                    alt={card.alt}
+                    width={480}
+                    height={480}
+                  />
                 </div>
+
                 <div className={styles.content}>
                   <span className={styles.desc}>{card.span}</span>
                   <h1>
-                    {cardTitle.map((word, index) => (
-                      <React.Fragment key={index}>
+                    {cardTitleWords.map((word, i) => (
+                      <React.Fragment key={i}>
                         <motion.span
                           className="inline-block"
                           initial={{ opacity: 0, y: 8 }}
@@ -81,14 +96,13 @@ const Benefits = () => {
                           transition={{
                             duration: 0.5,
                             ease: "easeOut",
-                            delay: index * 0.1,
+                            delay: i * 0.1,
                           }}
                           viewport={{ amount: "all", once: true }}
                         >
                           {word}
                         </motion.span>
-
-                        {index !== title.length - 1 && " "}
+                        {i !== cardTitleWords.length - 1 && " "}
                       </React.Fragment>
                     ))}
                   </h1>

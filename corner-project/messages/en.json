@@ -1,0 +1,177 @@
+{
+  "HomePage": {
+    "HeroSection": {
+      "title": "Technology that works the way you work",
+      "heading": "Digital systems & brand experiences",
+      "desktop_line0": "Technology",
+      "desktop_line1": "that works the",
+      "desktop_line2": "way you work"
+    },
+    "Navbar": {
+      "services": "Services",
+      "businesses": "Businesses",
+      "howItWorks": "How It Works",
+      "whyCorner": "Why Corner?",
+      "contact": "Contact",
+      "login": "Login",
+      "getDemo": "Get started",
+      "logoAlt": "Corner"
+    },
+    "Numbers": {
+      "title": "Built to work from day one.",
+      "items": {
+        "control": { "value": "100%", "label": "Control over your content" },
+        "wilaya": { "value": "69", "label": "Wilaya" },
+        "delivery": { "value": "7 days", "label": "Fast delivery" },
+        "support": { "value": "24/7", "label": "Available support" }
+      }
+    },
+    "Services": {
+      "title": "Building a brand used to be slow, noisy and hard.",
+      "subtitle": "Corner changes that by building your full digital presence brand, website, content, and online reputation so you’re easier to discover, easier to trust, and easier to reach.",
+      "cards": {
+        "menu": {
+          "title": "Smart QR Digital Menu",
+          "description": "Mobile-friendly interactive menu for your customers.",
+          "alt": "Smart QR Digital Menu"
+        },
+        "nfc": {
+          "title": "NFC Plaques & Cards",
+          "description": "Instantly share your social media and links with a simple tap.",
+          "alt": "NFC Plaques and Cards"
+        },
+        "identity": {
+          "title": "Visual Identity",
+          "description": "Professional branding and a high-converting landing page.",
+          "alt": "Visual Identity"
+        },
+        "presence": {
+          "title": "Digital Presence",
+          "description": "Analyze your business and improve your performance.",
+          "alt": "Digital Presence"
+        },
+        "content": {
+          "title": "Social Content & Video",
+          "description": "Clean posts and short videos designed to attract and convert.",
+          "alt": "Social Content and Video"
+        }
+      }
+    },
+    "Businesses": {
+      "title": "Designed for every type of business",
+      "subtitle": "Every page, profile, and post now creates value, turning discovery into trust, and trust into customers.",
+      "cards": {
+        "restaurants": {
+          "title": "Restaurants",
+          "desc": "Lorem ipsum dolor sit amet..."
+        },
+        "shops": { "title": "Shops", "desc": "Lorem ipsum dolor sit amet..." },
+        "gyms": { "title": "Gyms", "desc": "Lorem ipsum dolor sit amet..." },
+        "clinics": {
+          "title": "Beauty & barber",
+          "desc": "Lorem ipsum dolor sit amet..."
+        },
+        "cafes": { "title": "Cafes", "desc": "Lorem ipsum dolor sit amet..." },
+        "hotels": {
+          "title": "Hotels",
+          "desc": "Lorem ipsum dolor sit amet..."
+        },
+        "services": {
+          "title": "And more...",
+          "desc": "Lorem ipsum dolor sit amet..."
+        }
+      }
+    },
+    "HowItWorks": {
+      "title": "Going digital shouldn’t be complicated.",
+      "subtitle": "In 3 simple steps, Corner takes you from offline to unstoppable. We build your full digital presence and keep it consistent everywhere, so your business looks professional and stays reachable.",
+      "steps": {
+        "step1": {
+          "title": "Discover",
+          "desc": "Answer a few key questions. We analyze your needs, location, and customers.",
+          "alt": "Step 1 illustration"
+        },
+        "step2": {
+          "title": "Build",
+          "desc": "QR menu, landing page, Google profile, NFC. Everything ready and connected.",
+          "alt": "Step 2 illustration"
+        },
+        "step3": {
+          "title": "Launch",
+          "desc": "We launch it and show you how to use it daily to boost visibility and sales.",
+          "alt": "Step 3 illustration"
+        }
+      }
+    },
+    "CTA": {
+      "title": "Ready to take the next step for your business journey?",
+      "primaryCta": "Talk to us",
+      "secondaryCta": "Login"
+    },
+    "Benefits": {
+      "title": "Every touchpoint now drives growth.",
+      "subtitle": "Every page, profile, and post now creates value, turning discovery into trust, and trust into customers.",
+      "cards": {
+        "card1": {
+          "span": "More Visibility",
+          "h1": "Get found faster on Google, social media, and in your local area.",
+          "alt": "Visibility benefit"
+        },
+        "card2": {
+          "span": "Professional Image",
+          "h1": "Look modern and trustworthy everywhere customers see your business.",
+          "alt": "Professional image benefit"
+        },
+        "card3": {
+          "span": "Time Saved",
+          "h1": "Less back-and-forth and faster service with simple digital tools.",
+          "alt": "Time saved benefit"
+        }
+      }
+    },
+    "Contact": {
+      "title": "Let's build an awesome project together!",
+      "cards": {
+        "phone": {
+          "title": "Call us directly",
+          "info": "Available during working hours",
+          "links": {
+            "l1": { "text": "+213 698 68 86 62", "href": "tel:+21369868662" },
+            "l2": { "text": "+213 698 68 86 62", "href": "tel:+21369868662" }
+          }
+        },
+        "email": {
+          "title": "Email support",
+          "info": "Replies within 24 hours",
+          "links": {
+            "l1": {
+              "text": "support@example.com",
+              "href": "mailto:support@example.com"
+            }
+          }
+        },
+        "whatsapp": {
+          "title": "Chat with us",
+          "info": "Fast replies on WhatsApp",
+          "links": {
+            "l1": {
+              "text": "+213 698 68 86 62",
+              "href": "https://wa.me/21369868662"
+            }
+          }
+        }
+      }
+    },
+    "Footer": {
+      "logoAlt": "Corner",
+      "nav": {
+        "services": "Services",
+        "businesses": "Businesses",
+        "howItWorks": "How It Works",
+        "whyCorner": "Why Corner?",
+        "contact": "Contact"
+      },
+      "copyright": "Copyright {year} © Corner"
+    }
+  }
+}

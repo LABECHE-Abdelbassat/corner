@@ -1,6 +1,3 @@
-"use client";
-import React from "react";
-
 import styles from "./businesses.module.scss";
 import BusinessesSwiper from "./BusinessesSwiper";
 

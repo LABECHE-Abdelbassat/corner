@@ -1,0 +1,186 @@
+{
+  "HomePage": {
+    "HeroSection": {
+      "title": "Une technologie qui fonctionne comme vous travaillez",
+      "heading": "Systèmes numériques et expériences de marque",
+      "desktop_line0": "Technologie",
+      "desktop_line1": "qui suit votre",
+      "desktop_line2": "rythme de travail"
+    },
+    "Navbar": {
+      "services": "Services",
+      "businesses": "Entreprises",
+      "howItWorks": "Comment ça marche",
+      "whyCorner": "Pourquoi Corner?",
+      "contact": "Contact",
+      "login": "Connexion",
+      "getDemo": "Commencer",
+      "logoAlt": "Corner"
+    },
+    "Numbers": {
+      "title": "Pensé pour fonctionner dès le premier jour.",
+      "items": {
+        "control": {
+          "value": "100%",
+          "label": "Contrôle total de votre contenu"
+        },
+        "wilaya": { "value": "69", "label": "Wilaya" },
+        "delivery": { "value": "7 jours", "label": "Livraison rapide" },
+        "support": { "value": "24/7", "label": "Support disponible" }
+      }
+    },
+    "Services": {
+      "title": "Construire une marque était lent, bruyant et compliqué.",
+      "subtitle": "Corner change ça en construisant votre présence digitale complète marque, site web, contenu et réputation en ligne pour que vous soyez plus facile à découvrir, plus facile à faire confiance et plus facile à contacter.",
+      "cards": {
+        "menu": {
+          "title": "Menu QR intelligent",
+          "description": "Un menu interactif, adapté au mobile, pour vos clients.",
+          "alt": "Menu QR intelligent"
+        },
+        "nfc": {
+          "title": "Plaques & cartes NFC",
+          "description": "Partagez vos liens et réseaux sociaux instantanément avec un simple tap.",
+          "alt": "Plaques et cartes NFC"
+        },
+        "identity": {
+          "title": "Identité visuelle",
+          "description": "Un branding pro et une landing page qui convertit.",
+          "alt": "Identité visuelle"
+        },
+        "presence": {
+          "title": "Présence digitale",
+          "description": "Analysez votre activité et améliorez vos performances.",
+          "alt": "Présence digitale"
+        },
+        "content": {
+          "title": "Contenu social & vidéo",
+          "description": "Des posts propres et des vidéos courtes conçus pour attirer et convertir.",
+          "alt": "Contenu social et vidéo"
+        }
+      }
+    },
+    "Businesses": {
+      "title": "Conçu pour chaque type d’entreprise",
+      "subtitle": "Chaque page, profil et publication crée désormais de la valeur: la découverte devient confiance, et la confiance devient clients.",
+      "cards": {
+        "restaurants": {
+          "title": "Restaurants",
+          "desc": "Lorem ipsum dolor sit amet..."
+        },
+        "shops": {
+          "title": "Boutiques",
+          "desc": "Lorem ipsum dolor sit amet..."
+        },
+        "gyms": {
+          "title": "Salles de sport",
+          "desc": "Lorem ipsum dolor sit amet..."
+        },
+        "clinics": {
+          "title": "Beauté & coiffure",
+          "desc": "Lorem ipsum dolor sit amet..."
+        },
+        "cafes": { "title": "Cafés", "desc": "Lorem ipsum dolor sit amet..." },
+        "hotels": {
+          "title": "Hôtels",
+          "desc": "Lorem ipsum dolor sit amet..."
+        },
+        "services": {
+          "title": "Et plus...",
+          "desc": "Lorem ipsum dolor sit amet..."
+        }
+      }
+    },
+    "HowItWorks": {
+      "title": "Passer au digital ne devrait pas être compliqué.",
+      "subtitle": "En 3 étapes simples, Corner vous fait passer de hors-ligne à incontournable. On construit votre présence digitale complète et on la garde cohérente partout, pour que votre business paraisse pro et reste joignable.",
+      "steps": {
+        "step1": {
+          "title": "Découvrir",
+          "desc": "Quelques questions clés, puis on analyse vos besoins, votre zone et vos clients.",
+          "alt": "Illustration étape 1"
+        },
+        "step2": {
+          "title": "Construire",
+          "desc": "Menu QR, landing page, fiche Google, NFC. Tout est prêt et connecté.",
+          "alt": "Illustration étape 2"
+        },
+        "step3": {
+          "title": "Lancer",
+          "desc": "On lance et on vous montre comment l’utiliser chaque jour pour gagner en visibilité et en ventes.",
+          "alt": "Illustration étape 3"
+        }
+      }
+    },
+    "CTA": {
+      "title": "Prêt à passer à l’étape suivante pour développer votre activité?",
+      "primaryCta": "Parlez-nous",
+      "secondaryCta": "Connexion"
+    },
+    "Benefits": {
+      "title": "Chaque point de contact devient un levier de croissance.",
+      "subtitle": "Chaque page, profil et publication crée de la valeur : la découverte devient confiance, et la confiance devient clients.",
+      "cards": {
+        "card1": {
+          "span": "Plus de visibilité",
+          "h1": "Soyez trouvé plus vite sur Google, les réseaux sociaux et près de chez vous.",
+          "alt": "Avantage visibilité"
+        },
+        "card2": {
+          "span": "Image professionnelle",
+          "h1": "Ayez une image moderne et fiable partout où vos clients vous voient.",
+          "alt": "Avantage image professionnelle"
+        },
+        "card3": {
+          "span": "Gain de temps",
+          "h1": "Moins d’allers-retours et un service plus rapide grâce à des outils digitaux simples.",
+          "alt": "Avantage gain de temps"
+        }
+      }
+    },
+    "Contact": {
+      "title": "Construisons ensemble un projet incroyable!",
+      "cards": {
+        "phone": {
+          "title": "Appelez-nous",
+          "info": "Disponible pendant les heures de travail",
+          "links": {
+            "l1": { "text": "+213 698 68 86 62", "href": "tel:+21369868662" },
+            "l2": { "text": "+213 698 68 86 62", "href": "tel:+21369868662" }
+          }
+        },
+        "email": {
+          "title": "Support par email",
+          "info": "Réponse sous 24 heures",
+          "links": {
+            "l1": {
+              "text": "support@example.com",
+              "href": "mailto:support@example.com"
+            }
+          }
+        },
+        "whatsapp": {
+          "title": "Discutez avec nous",
+          "info": "Réponse rapide sur WhatsApp",
+          "links": {
+            "l1": {
+              "text": "+213 698 68 86 62",
+              "href": "https://wa.me/21369868662"
+            }
+          }
+        }
+      }
+    },
+    "Footer": {
+      "logoAlt": "Corner",
+      "nav": {
+        "services": "Services",
+        "businesses": "Entreprises",
+        "howItWorks": "Comment ça marche",
+        "whyCorner": "Pourquoi Corner?",
+        "contact": "Contact"
+      },
+      "copyright": "Copyright {year} © Corner"
+    }
+  }
+}

@@ -1,17 +1,43 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./dropdown.module.scss";
 
 import { MdKeyboardArrowDown } from "react-icons/md";
 import * as motion from "motion/react-client";
 import { AnimatePresence } from "motion/react";
-import { IoLanguage } from "react-icons/io5";
+
+import { useLocale } from "next-intl";
+import { useRouter, usePathname } from "@/i18n/navigation";
+
+const LANGS = [
+  { code: "en", label: "EN - English" },
+  { code: "fr", label: "FR - French" },
+] as const;
+
+type Locale = (typeof LANGS)[number]["code"];
 
 const Dropdown = ({ variant = "black" }) => {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
 
-  const handleItemClick = () => setOpen(false);
+  const locale = useLocale() as Locale;
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const orderedLangs = useMemo(() => {
+    const active = LANGS.find((l) => l.code === locale);
+    const rest = LANGS.filter((l) => l.code !== locale);
+    return active ? [active, ...rest] : LANGS;
+  }, [locale]);
+
+  const changeLocale = (nextLocale: Locale) => {
+    if (nextLocale === locale) {
+      setOpen(false);
+      return;
+    }
+    router.replace(pathname, { locale: nextLocale });
+    setOpen(false);
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -21,24 +47,14 @@ const Dropdown = ({ variant = "black" }) => {
     const onPointerDown = (e: PointerEvent) => {
       const root = rootRef.current;
       if (!root) return;
-
-      // click/tap outside => close
-      if (e.target instanceof Node && !root.contains(e.target)) {
-        close();
-      }
+      if (e.target instanceof Node && !root.contains(e.target)) close();
     };
 
-    const onScroll = () => {
-      // any scroll (window or scrollable containers) => close
-      close();
-    };
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-    };
+    const onScroll = () => close();
+    const onKeyDown = (e: KeyboardEvent) => e.key === "Escape" && close();
 
     document.addEventListener("pointerdown", onPointerDown);
-    document.addEventListener("scroll", onScroll, true); // capture scroll from any container
+    document.addEventListener("scroll", onScroll, true);
     document.addEventListener("keydown", onKeyDown);
 
     return () => {
@@ -61,8 +77,7 @@ const Dropdown = ({ variant = "black" }) => {
           if (e.key === "Enter" || e.key === " ") setOpen((v) => !v);
         }}
       >
-        {/* <IoLanguage /> */}
-        EN <MdKeyboardArrowDown />
+        {locale.toUpperCase()} <MdKeyboardArrowDown />
       </div>
 
       <AnimatePresence>
@@ -77,27 +92,20 @@ const Dropdown = ({ variant = "black" }) => {
           >
             <div className={styles.frame}></div>
 
-            <div
-              className={styles.item}
-              onClick={handleItemClick}
-              role="menuitem"
-            >
-              EN - English
-            </div>
-            <div
-              className={styles.item}
-              onClick={handleItemClick}
-              role="menuitem"
-            >
-              FR - French
-            </div>
-            <div
-              className={styles.item}
-              onClick={handleItemClick}
-              role="menuitem"
-            >
-              AR - Arabic
-            </div>
+            {orderedLangs.map((l) => {
+              const isActive = l.code === locale;
+              return (
+                <div
+                  key={l.code}
+                  className={`${styles.item} ${isActive ? styles.current : ""}`}
+                  onClick={() => changeLocale(l.code)}
+                  role="menuitem"
+                  aria-current={isActive ? "true" : undefined}
+                >
+                  {l.label}
+                </div>
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>

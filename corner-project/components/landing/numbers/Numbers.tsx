@@ -1,20 +1,22 @@
+"use client";
 import React from "react";
-import { FaUsers, FaShieldAlt } from "react-icons/fa";
-import { FaLocationDot, FaRocket } from "react-icons/fa6";
 import * as motion from "motion/react-client";
-
 import styles from "./numbers.module.scss";
 import { toWords } from "@/utils/toWords";
+import { useTranslations } from "next-intl";
 
 const Numbers = () => {
-  const title = toWords("They already trust us");
+  const t = useTranslations("HomePage.Numbers");
+
+  const title = toWords(t("title"));
 
   const numbers = [
-    { value: "50+", label: "Clients" },
-    { value: "69", label: "Wilaya" },
-    { value: "7j", label: "Fast delivery" },
-    { value: "24/7", label: "Available support" },
+    { value: t("items.control.value"), label: t("items.control.label") },
+    { value: t("items.wilaya.value"), label: t("items.wilaya.label") },
+    { value: t("items.delivery.value"), label: t("items.delivery.label") },
+    { value: t("items.support.value"), label: t("items.support.label") },
   ];
+
   return (
     <div className={styles.numbers}>
       <div className={`mx-auto px-4 sm:px-6 lg:px-10 ${styles.container}`}>
@@ -34,33 +36,24 @@ const Numbers = () => {
               >
                 {word}
               </motion.span>
-
               {index !== title.length - 1 && " "}
             </React.Fragment>
           ))}
         </h1>
+
         <div className={styles.layout}>
           {numbers.map((number, index) => (
             <motion.div
-              initial={{
-                opacity: 0,
-                y: 16,
-              }}
+              key={index}
+              initial={{ opacity: 0, y: 16 }}
               transition={{
                 duration: 0.5,
                 ease: "easeOut",
                 delay: index * 0.2,
               }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              viewport={{
-                amount: "all",
-                once: true,
-              }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ amount: "all", once: true }}
               className={styles.number}
-              key={index}
             >
               <h1>{number.value}</h1>
               <span>{number.label}</span>

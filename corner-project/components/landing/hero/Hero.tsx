@@ -2,21 +2,25 @@ import React from "react";
 import styles from "./hero.module.scss";
 import Image from "next/image";
 
-import heroLeft from "@/public/images/hero-left.webp";
-import heroCenter from "@/public/images/Frame 9781.webp";
-import heroRight from "@/public/images/Frame 9779.webp";
+import heroLeft from "@/public/images/hero-left11.webp";
+import heroCenter from "@/public/images/hero-center5.webp";
+import heroRight from "@/public/images/hero-right3.webp";
 
 import { toWords } from "@/utils/toWords";
 import * as motion from "motion/react-client";
+import { useTranslations } from "next-intl";
 
 const Hero = () => {
   // mobile (kept as-is)
-  const title = toWords("Technology that works the way you work");
+
+  const t = useTranslations("HomePage.HeroSection");
+
+  const title = toWords(t("title"));
 
   // desktop split (so div1/div2 stay)
-  const w0 = toWords("Technology");
-  const w1 = toWords("that works the");
-  const w2 = toWords("way you work");
+  const w0 = toWords(t("desktop_line0"));
+  const w1 = toWords(t("desktop_line1"));
+  const w2 = toWords(t("desktop_line2"));
 
   const renderWords = (words: string[], startIndex = 0) =>
     words.map((word, i) => {
@@ -47,9 +51,7 @@ const Hero = () => {
     <main className={styles.hero}>
       <div className={`mx-auto px-4 sm:px-6 lg:px-10 ${styles.container}`}>
         <div className={styles.title}>
-          <h1 className={styles.main_title}>
-            Digital systems & brand experiences
-          </h1>
+          <h1 className={styles.main_title}>{t("heading")}</h1>
 
           <h1 className={`${styles.sub_title} mx-auto`}>
             {renderWords(w0, 0)}
@@ -83,13 +85,23 @@ const Hero = () => {
 
         <div className={styles.images}>
           <div className={styles.left}>
-            <Image src={heroLeft} alt="hero image 1" />
+            <Image src={heroLeft} alt="hero image 1" width={678} height={816} />
           </div>
           <div className={styles.center}>
-            <Image src={heroCenter} alt="hero image 2" />
+            <Image
+              src={heroCenter}
+              alt="hero image 2"
+              width={1082}
+              height={844}
+            />
           </div>
           <div className={styles.right}>
-            <Image src={heroRight} alt="hero image 3" />
+            <Image
+              src={heroRight}
+              alt="hero image 3"
+              width={678}
+              height={816}
+            />
           </div>
         </div>
       </div>
